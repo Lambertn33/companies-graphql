@@ -6,6 +6,24 @@ export default buildSchema(`
         names: String!
         email: String!
     }
+    type Speciality {
+        type: String
+    }
+
+    type Company {
+        id: ID
+        name: String!
+        speciality: Speciality
+    }
+
+    type newCompanyCreatedResponse {
+        message: String!
+    }
+
+    input newCompanyInputs {
+        name: String!
+        specialityId: ID!
+    }
 
     input signinInputs {
         email: String!
@@ -25,10 +43,12 @@ export default buildSchema(`
 
     type RootQuery {
         signIn(inputs: signinInputs): SigninResponse!
+        getMyCompany: Company!
     }
 
     type RootMutation {
         signUp(inputs: signupInputs!): User! 
+        createNewCompany(inputs: newCompanyInputs): newCompanyCreatedResponse!
     }
 
     schema {

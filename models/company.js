@@ -16,10 +16,10 @@ const Company = sequelize.define('company', {
     },
 });
 
+User.hasOne(Company);
 Company.belongsTo(User);
 Company.belongsTo(Speciality);
 Speciality.hasMany(Company);
-User.hasOne(Company);
 Company.hasMany(Product);
 Product.belongsTo(Company);
 

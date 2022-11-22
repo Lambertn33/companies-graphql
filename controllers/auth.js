@@ -32,7 +32,7 @@ const signIn = async(userInputs) => {
     return {
         userId: user.id,
         token: token
-    }
+    };
 }
 
 export default {

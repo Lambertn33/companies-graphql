@@ -6,6 +6,12 @@ import sequelize from './util/db';
 import seedSpecialities from './seeders/specialities';
 import graphSchema from './graphql/schema';
 import graphResolver from './graphql/resolvers';
+import checkToken from './middleware/checkToken';
+
+import User from './models/user';
+import Speciality from './models/speciality';
+import Company from './models/company';
+import Product from './models/product';
 
 const app = express();
 
@@ -17,6 +23,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(checkToken);
 app.use('/graphql', graphqlHTTP({
     schema: graphSchema,
     rootValue: graphResolver,
