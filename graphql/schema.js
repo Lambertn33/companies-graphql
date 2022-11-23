@@ -16,6 +16,17 @@ export default buildSchema(`
         speciality: Speciality
     }
 
+    type Product {
+        id: ID!
+        name: String!
+        price: Float!
+    }
+
+    input newProductInputs {
+        name: String!
+        price: Float!
+    }
+
     type newCompanyCreatedResponse {
         message: String!
     }
@@ -44,11 +55,13 @@ export default buildSchema(`
     type RootQuery {
         signIn(inputs: signinInputs): SigninResponse!
         getMyCompany: Company!
+        getMyProducts: [Product!]!
     }
 
     type RootMutation {
         signUp(inputs: signupInputs!): User! 
         createNewCompany(inputs: newCompanyInputs): newCompanyCreatedResponse!
+        createNewProduct(inputs: newProductInputs): Product!
     }
 
     schema {

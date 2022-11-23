@@ -20,5 +20,17 @@ export default {
         const {authenticatedUser, isAuth} = req;
         if (!isAuth) throw new Error('unauthenticated');
         return await companiesController.getMyCompany(authenticatedUser.id);
+    },
+
+    createNewProduct: async function({inputs}, req) {
+        const {authenticatedUser, isAuth} = req;
+        if (!isAuth) throw new Error('unauthenticated');
+        return await companiesController.createNewProduct(authenticatedUser.id, inputs);
+    },
+
+    getMyProducts: async function({}, req) {
+        const {authenticatedUser, isAuth} = req;
+        if (!isAuth) throw new Error('unauthenticated');        
+        return await companiesController.getMyProducts(authenticatedUser.id);
     }
 }

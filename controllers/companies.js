@@ -25,12 +25,37 @@ const createNewCompany = async(newCompanyInputs, userId) => {
 const getMyCompany = async(userId) => {
     const user = await User.findByPk(userId);
     const userCompany =  await Company.findOne({where: {userId: userId}, include: [Speciality]});
-    console.log(userCompany);
     if(!userCompany) throw new Error('you have no company at the moment');
     return getMyCompany;
 }
 
+const createNewProduct = async(userId, inputs) => {
+    const {name, price} = inputs;
+    const user = await User.findByPk(userId);
+    const userCompany = await user.getCompany();
+    if(!userCompany) throw new Error('you have no company at the moment');
+
+    const newProduct = {
+        id: uuidV4(),
+        name: name, 
+        price: price,
+    };
+    const createdProduct = await userCompany.createProduct(newProduct);
+    return createdProduct;
+}
+
+const getMyProducts = async(userId) => {
+    const user = await User.findByPk(userId);
+    const userCompany = await user.getCompany();
+    if(!userCompany) throw new Error('you have no company at the moment');
+
+    const myProducts = await userCompany.getProducts();
+    return myProducts;
+}
+
 export default {
     createNewCompany,
-    getMyCompany
+    getMyCompany,
+    createNewProduct,
+    getMyProducts
 }
